@@ -3,6 +3,7 @@ var app = require('app');
 var BrowserWindow = require('browser-window');
 var appMenu = require("menu");
 var appTray = require("tray");
+var path = require("path");
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 // Crash Reporter (Optional)
 require('crash-reporter').start({
@@ -22,7 +23,7 @@ app.on('mainWindow-all-closed', function() {
 });
 // App is loaded
 app.on('ready', function() {
-  // Tray icon not on OSX
+  // Tray icon
   // template
   var trayTemplate = [{
     label: "About Application",
@@ -34,7 +35,7 @@ app.on('ready', function() {
     }
   }];
   // set tray icon with context menu
-  appIcon = new appTray('img/tray.png');
+  appIcon = new appTray(path.join(__dirname, 'img/tray.png'));
   appIcon.setContextMenu(appMenu.buildFromTemplate(trayTemplate));
   // Create the main window for the app
   mainWindow = new BrowserWindow({
@@ -46,7 +47,7 @@ app.on('ready', function() {
     "use-content-size": true,
     "transparent": true, // better look in OSX
     "title-bar-style": "hidden-inset", // better look in OSX
-    "icon": "img/app.png" // app icon (for linux build)
+    "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
   });
   // Load in content with webview to APEX app
   mainWindow.loadURL('file://' + __dirname + '/index.html');
@@ -151,7 +152,7 @@ app.on('activate', function(e, hasVisibleWindows) {
       "use-content-size": true,
       "transparent": true, // better look in OSX
       "title-bar-style": "hidden-inset", // better look in OSX
-      "icon": "img/app.png" // app icon (for linux build)
+      "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
     });
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     mainWindow.on('closed', function() {

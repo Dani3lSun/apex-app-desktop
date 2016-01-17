@@ -2,6 +2,7 @@
 var app = require('app');
 var BrowserWindow = require('browser-window');
 var appMenu = require("menu");
+var appTray = require("tray");
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 // Crash Reporter (Optional)
 require('crash-reporter').start({
@@ -10,8 +11,9 @@ require('crash-reporter').start({
   submitURL: 'https://github.com/Dani3lSun/apex-app-desktop/issues',
   autoSubmit: false
 });
-// Init mainWindow
+// Init mainWindow and Tray
 var mainWindow = null;
+var appIcon = null;
 // Kill the app when all windows are closed
 app.on('mainWindow-all-closed', function() {
   if (process.platform != 'darwin') {
@@ -20,6 +22,8 @@ app.on('mainWindow-all-closed', function() {
 });
 // App is loaded
 app.on('ready', function() {
+  // Tray icon
+  appIcon = new appTray('img/app.png');
   // Create the main window for the app
   mainWindow = new BrowserWindow({
     "width": 1280, // init width
@@ -29,7 +33,8 @@ app.on('ready', function() {
     "resizable": true,
     "use-content-size": true,
     "transparent": true, // better look in OSX
-    "title-bar-style": "hidden-inset" // better look in OSX
+    "title-bar-style": "hidden-inset", // better look in OSX
+    "icon": "img/app.png" // app icon (for linux build)
   });
   // Load in content with webview to APEX app
   mainWindow.loadURL('file://' + __dirname + '/index.html');
@@ -133,7 +138,8 @@ app.on('activate', function(e, hasVisibleWindows) {
       "resizable": true,
       "use-content-size": true,
       "transparent": true, // better look in OSX
-      "title-bar-style": "hidden-inset" // better look in OSX
+      "title-bar-style": "hidden-inset", // better look in OSX
+      "icon": "img/app.png" // app icon (for linux build)
     });
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     mainWindow.on('closed', function() {

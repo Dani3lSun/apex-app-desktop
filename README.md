@@ -11,13 +11,13 @@
 			- [Install Node.js](#install-nodejs)
 		- [Electron App](#electron-app)
 			- [package.json](#packagejson)
-      - [Install Electron into app folder and globally](#install-electron-into-app-folder-and-globally)
-      - [main.js](#mainjs)
-      - [index.html](#indexhtml)
-      - [apexutils.js](#apexutilsjs)
-      - [electronapex.js](#electronapexjs)
-      - [Starting the App](#starting-the-app)
-      - [Bundle the app into a real Application](#bundle-the-app-into-a-real-Application)
+			- [Install Electron into app folder and globally](#install-electron-into-app-folder-and-globally)
+			- [main.js](#mainjs)
+			- [index.html](#indexhtml)
+			- [apexutils.js](#apexutilsjs)
+			- [electronapex.js](#electronapexjs)
+			- [Starting the App](#starting-the-app)
+			- [Bundle the app into a real Application](#bundle-the-app-into-a-real-Application)
 	- [Sample functions](#sample-functions)
 		- [Desktop notifications](#desktop-notifications)
 		- [File open](#file-open)
@@ -450,7 +450,7 @@ Now you can create the application on commandline with:
 cd apex-app-desktop
 electron-packager . "APEX Plugins" --platform=darwin --arch=x64 --version=0.36.4 --app-version=1.0.0 --icon img/app.icns
 ```
-This command creates a "APEX Plugins.app" for Mac OS X (darwin) in 64bit, optionally takes the image from img folder as application icon. ""--version" is the version string for electron, can be found in your package.json file!
+This command creates a "APEX Plugins.app" for Mac OS X (darwin) in 64bit, optionally takes the image from img folder as application icon. "--version" is the version string for electron, can be found in your package.json file!
 
 ##Sample functions
 ###Desktop notifications

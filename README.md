@@ -17,7 +17,7 @@
 			- [apexutils.js](#apexutilsjs)
 			- [electronapex.js](#electronapexjs)
 			- [Starting the App](#starting-the-app)
-			- [Bundle the app into a real Application](#bundle-the-app-into-a-real-Application)
+			- [Bundle the app into a real Application](#bundle-the-app-into-a-real-application)
 	- [Sample functions](#sample-functions)
 		- [Desktop notifications](#desktop-notifications)
 		- [File open](#file-open)

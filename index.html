@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>APEX Plugins</title>
+</head>
+
+<body style="overflow: hidden">
+  <!-- Webview
+  Parameter:
+  autosize="on",
+  allowpopups (allow new windows created inside webview),
+  minwidth,
+  minheight,
+  useragent (UserAgent inside the webview - used for authorization scheme in APEX)
+  -->
+  <webview id="apex-plugin-app" src="https://apex.oracle.com/pls/apex/f?p=APEXPLUGIN" autosize="on" allowpopups minwidth="1024" minheight="800" useragent="APEXDESKTOP" style="height:100%;width:100%;position:absolute;"></webview>
+  <!-- Webview JS -->
+  <script>
+    var webview = document.getElementById("apex-plugin-app");
+    var apexutils = require('./apexutils');
+    // open href links in electron app
+    webview.addEventListener('new-window', function(e) {
+      window.open(e.url, e.frameName, "resizable,scrollbars,status");
+    });
+    // console message events (functions wrapped into console messages)
+    webview.addEventListener('console-message', function(e) {
+      var stringDevider = "::";
+      var position = e.message.indexOf(stringDevider);
+      var messageType = e.message.substr(0, position);
+      // open local file
+      if (messageType === 'open-file') {
+        apexutils.openLocalFile(e.message);
+      }
+    });
+  </script>
+</body>
+
+</html>

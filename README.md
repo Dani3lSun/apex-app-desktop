@@ -183,9 +183,19 @@ app.on('mainWindow-all-closed', function() {
 // App is loaded
 app.on('ready', function() {
   // Tray icon not on OSX
-  if (process.platform != 'darwin') {
-    appIcon = new appTray('img/tray.png');
-  }
+  // template
+  var trayTemplate = [{
+    label: "About Application",
+    selector: "orderFrontStandardAboutPanel:"
+  }, {
+    label: "Quit",
+    click: function() {
+      app.quit();
+    }
+  }];
+  // set tray icon with context menu
+  appIcon = new appTray('img/tray.png');
+  appIcon.setContextMenu(appMenu.buildFromTemplate(trayTemplate));
   // Create the main window for the app
   mainWindow = new BrowserWindow({
     "width": 1280, // init width
@@ -206,7 +216,7 @@ app.on('ready', function() {
   });
   // Create the Application main menu (required for Copy&Paste Support)
   // Application menu
-  var template = [{
+  var menuTemplate = [{
     label: "Application",
     submenu: [{
         label: "About Application",
@@ -287,7 +297,7 @@ app.on('ready', function() {
     }]
   }];
   // set menu with options from above
-  appMenu.setApplicationMenu(appMenu.buildFromTemplate(template));
+  appMenu.setApplicationMenu(appMenu.buildFromTemplate(menuTemplate));
 });
 // Create the main window for the app when App is reopened from OSX Dock
 app.on('activate', function(e, hasVisibleWindows) {

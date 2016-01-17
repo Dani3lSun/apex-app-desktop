@@ -55,7 +55,7 @@ This showcase describes the steps I´ve been done (maybe wrong ones included, to
 
 ##Changelog
 
-####0.8 - Beta Testing
+####First testings...
 
 
 ##Installation
@@ -82,6 +82,7 @@ npm is the package manager for node applications. Thus electron is based on node
 ###Electron App
 ####package.json
 **not required if you decide to download this repository!**
+
 The first step is to generate the package.json file
 ```
 mkdir apex-app-desktop
@@ -115,7 +116,7 @@ The resulting json file could look like this:
 }
 ```
 
-Now we have to add **"start": "electron .""** to the scripts tag of the json file.
+Now we have to add **"start": "electron ."** to the scripts tag of the json file.
 ```json
 {
   "name": "apex-app-desktop",
@@ -459,13 +460,6 @@ var text = $v('P15_NOTIFY_TEXT'); //read text from APEX item
 electronapex.doNotify(text); //use function from electronapex.js
 ```
 
-###Desktop notifications
-For this functionality I created a dynamic action (on button click) with this code:
-```javascript
-var text = $v('P15_NOTIFY_TEXT'); //read text from APEX item
-electronapex.doNotify(text); //use function from electronapex.js
-```
-
 Uses the Browser Notification API [MDN](https://developer.mozilla.org/de/docs/Web/API/notification)
 
 ###File open
@@ -481,6 +475,7 @@ Thus the webview is created with the option (useragent="APEXDESKTOP" - index.htm
 we can use this on APEX side to create a authorization scheme which is true or false based on the user agent of the "browser".
 
 Name: Is Electron User Agent
+
 Message: This page is only visible inside a electron desktop app
 
 ```language-sql
@@ -502,5 +497,5 @@ This software is under **MIT License**.
 [LICENSE](https://github.com/Dani3lSun/apex-app-desktop/blob/master/LICENSE)
 
 ##Preview
-![]()
+![](https://github.com/Dani3lSun/apex-app-desktop/blob/master/preview.gif)
 ---

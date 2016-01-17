@@ -470,6 +470,20 @@ electron-packager . "APEX Plugins" --platform=darwin --arch=x64 --version=0.36.4
 ```
 This command creates a "APEX Plugins.app" for Mac OS X (darwin) in 64bit, optionally takes the image from img folder as application icon. "--version" is the version string for electron, can be found in your package.json file!
 
+for Linux:
+```
+cd apex-app-desktop
+electron-packager . "APEX Plugins" --platform=linux --arch=x64 --version=0.36.4 --app-version=1.0.0
+```
+
+and Windows:
+```
+cd apex-app-desktop
+electron-packager . "APEX Plugins" --platform=win32 --arch=x64 --version=0.36.4 --app-version=1.0.0 --icon img/app.ico
+```
+
+If you build a Windows Binary on other platforms be sure to install "wine" before!
+
 ##Sample functions
 ###Desktop notifications
 For this functionality I created a dynamic action (on button click) with this code:

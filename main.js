@@ -22,8 +22,10 @@ app.on('mainWindow-all-closed', function() {
 });
 // App is loaded
 app.on('ready', function() {
-  // Tray icon
-  appIcon = new appTray('img/app.png');
+  // Tray icon not on OSX
+  if (process.platform != 'darwin') {
+    appIcon = new appTray('img/tray.png');
+  }
   // Create the main window for the app
   mainWindow = new BrowserWindow({
     "width": 1280, // init width

@@ -2,9 +2,9 @@
 
 - [APEX Desktop Application using Github Electron](#apex-desktop-application-using-github-electron)
 	- [Description](#description)
-  - [Helpful links](#helpful-links)
+	- [Helpful links](#helpful-links)
 	- [Successful](#successful)
-  - [Problems](#problems)
+	- [Problems](#problems)
 	- [Changelog](#changelog)
 	- [Installation](#installation)
 		- [Preparations](#preparations)

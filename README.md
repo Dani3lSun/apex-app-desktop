@@ -31,6 +31,7 @@ This is not a ready to use software, but much more a showcase and tutorial how t
 
 This showcase describes the steps I´ve been done (maybe wrong ones included, too :) ), there I had success and there a had problems with.
 
+
 ##Helpful Links
 - [Electron](http://electron.atom.io)
 - [Electron on Github](https://github.com/atom/electron)
@@ -38,6 +39,7 @@ This showcase describes the steps I´ve been done (maybe wrong ones included, to
 - [Electron API docs](https://github.com/atom/electron/tree/master/docs/api)
 - [Electron Packager](https://github.com/maxogden/electron-packager) (Packaging Apps into container to rollout)
 - [Electron Tutorial](http://ryanfrench.co/2015/05/02/harmonic_tutorial_1.html) (Sample App tutorial)
+
 
 ##Successful
 - Embed APEX App into electron using webview
@@ -52,6 +54,7 @@ This showcase describes the steps I´ve been done (maybe wrong ones included, to
 - React on electron functions triggered from APEX app (nodeintegration and webview-preload functions in webviews does not work for APEX app (maybe because of the changed URL if page gets rendered))
 - Session state (on a hard refresh, app returns to login page (possible solution: on close get last webview URL and save it))
 - Closing to OS X dock: Reopening the app shows login page, instead of content from before (minimize works well)
+
 
 ##Changelog
 
@@ -523,6 +526,7 @@ BEGIN
   END IF;
 END;
 ```
+
 
 ##License
 This software is under **MIT License**.

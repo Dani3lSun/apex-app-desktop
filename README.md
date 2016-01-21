@@ -158,7 +158,7 @@ npm i -g electron-prebuilt #globally for using commandline
 **not required if you decide to download this repository!**
 
 This is the main javascript file for the app (also mentioned in the package.json file). It will initialize the whole application.
-Here you can open new windows, react on app events or create menus...
+Here you can open new windows, react on app events or create menus...If you decide to do all by yourself and not copying the whole repo, be sure to include the images (such as tray.png) or comment out that lines using referenced images.
 
 ```javascript
 // Libraries used in the app

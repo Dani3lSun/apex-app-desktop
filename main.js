@@ -45,7 +45,7 @@ app.on('ready', function() {
     "min-height": 800,
     "resizable": true,
     "use-content-size": true,
-    "transparent": true, // better look in OSX
+    //"transparent": true, // better look in OSX
     "title-bar-style": "hidden-inset", // better look in OSX
     "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
   });

@@ -208,7 +208,7 @@ app.on('ready', function() {
     "min-height": 800,
     "resizable": true,
     "use-content-size": true,
-    "transparent": true, // better look in OSX
+    //"transparent": true, // better look in OSX
     "title-bar-style": "hidden-inset", // better look in OSX
     "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
   });
@@ -340,6 +340,15 @@ Also this file has js functions that get triggered from webview events.
 </head>
 
 <body style="overflow: hidden">
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
   <!-- Webview
   Parameter:
   autosize="on",
@@ -348,7 +357,7 @@ Also this file has js functions that get triggered from webview events.
   minheight,
   useragent (UserAgent inside the webview - used for authorization scheme in APEX)
   -->
-  <webview id="apex-plugin-app" src="https://apex.oracle.com/pls/apex/f?p=APEXPLUGIN" autosize="on" allowpopups minwidth="1024" minheight="800" useragent="APEXDESKTOP" style="height:100%;width:100%;position:absolute;"></webview>
+  <webview id="apex-plugin-app" src="https://apex.oracle.com/pls/apex/f?p=APEXPLUGIN" autosize="on" allowpopups minwidth="1024" minheight="800" useragent="APEXDESKTOP"></webview>
   <!-- Webview JS -->
   <script>
     var webview = document.getElementById("apex-plugin-app");

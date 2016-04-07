@@ -41,12 +41,12 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({
     "width": 1280, // init width
     "height": 800, // init height
-    "min-width": 1024,
-    "min-height": 800,
+    "minWidth": 1024,
+    "minHeight": 800,
     "resizable": true,
-    "use-content-size": true,
+    "useContentSize": true,
     //"transparent": true, // better look in OSX
-    "title-bar-style": "hidden-inset", // better look in OSX
+    "titleBarStyle": "hidden-inset", // better look in OSX
     "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
   });
   // Load in content with webview to APEX app
@@ -146,12 +146,12 @@ app.on('activate', function(e, hasVisibleWindows) {
     mainWindow = new BrowserWindow({
       "width": 1280, //init width
       "height": 800, // init height
-      "min-width": 1024,
-      "min-height": 800,
+      "minWidth": 1024,
+      "minHeight": 800,
       "resizable": true,
-      "use-content-size": true,
+      "useContentSize": true,
       "transparent": true, // better look in OSX
-      "title-bar-style": "hidden-inset", // better look in OSX
+      "titleBarStyle": "hidden-inset", // better look in OSX
       "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
     });
     mainWindow.loadURL('file://' + __dirname + '/index.html');

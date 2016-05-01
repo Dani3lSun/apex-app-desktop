@@ -25,14 +25,14 @@
 	- [License](#license)
 	- [Preview](#preview)
 
-#APEX Desktop Application using Github Electron
-##Description
+# APEX Desktop Application using Github Electron
+## Description
 This is not a ready to use software, but much more a showcase and tutorial how to build desktop APEX apps using Electron from Github...
 
 This showcase describes the steps I´ve been done (maybe wrong ones included, too :) ), there I had success and there a had problems with.
 
 
-##Helpful Links
+## Helpful Links
 - [Electron](http://electron.atom.io)
 - [Electron on Github](https://github.com/atom/electron)
 - [Node.js](https://nodejs.org) (required on your Machine to install all other things)
@@ -41,7 +41,7 @@ This showcase describes the steps I´ve been done (maybe wrong ones included, to
 - [Electron Tutorial](http://ryanfrench.co/2015/05/02/harmonic_tutorial_1.html) (Sample App tutorial)
 
 
-##Successful
+## Successful
 - Embed APEX App into electron using webview
 - Copy&Paste support with App menu (menubar)
 - Open links (href / window.open) inside of electron app
@@ -50,20 +50,20 @@ This showcase describes the steps I´ve been done (maybe wrong ones included, to
 - App style without border and titlebar
 - fullscreen mode
 
-##Problems
+## Problems
 - React on electron functions triggered from APEX app (nodeintegration and webview-preload functions in webviews does not work for APEX app (maybe because of the changed URL if page gets rendered))
 - Session state (on a hard refresh, app returns to login page (possible solution: on close get last webview URL and save it))
 - Closing to OS X dock: Reopening the app shows login page, instead of content from before (minimize works well)
 
 
-##Changelog
+## Changelog
 
-####First testings...
+#### First testings...
 
 
-##Installation
-###Preparations
-####Install Node.js
+## Installation
+### Preparations
+#### Install Node.js
 It is required to have a up and running Node.js installation on your local development machine.
 Either install it using a package manager, or download the latest version from Node.js homepage...for example:
 - Ubuntu:
@@ -82,8 +82,8 @@ Download and install it from Nodejs homepage
 
 npm is the package manager for node applications. Thus electron is based on node, npm is working all the same...
 
-###Electron App
-####package.json
+### Electron App
+#### package.json
 **not required if you decide to download this repository!**
 
 The first step is to generate the package.json file
@@ -146,7 +146,7 @@ Now we have to add **"start": "electron ."** to the scripts tag of the json file
 }
 ```
 
-####Install Electron into app folder and globally
+#### Install Electron into app folder and globally
 **not required if you decide to download this repository!**
 
 ```
@@ -154,7 +154,7 @@ npm i electron-prebuilt --save-dev #for local app folder
 npm i -g electron-prebuilt #globally for using commandline
 ```
 
-####main.js
+#### main.js
 **not required if you decide to download this repository!**
 
 This is the main javascript file for the app (also mentioned in the package.json file). It will initialize the whole application.
@@ -325,7 +325,7 @@ app.on('activate', function(e, hasVisibleWindows) {
 });
 ```
 
-####index.html
+#### index.html
 **not required if you decide to download this repository!**
 
 This file is opened from main.js. It includes the webview element which has as source the APEX URL.
@@ -382,7 +382,7 @@ Also this file has js functions that get triggered from webview events.
 </html>
 ```
 
-####apexutil.js
+#### apexutil.js
 **not required if you decide to download this repository!**
 
 This file contains functions for APEX triggered events in electron opponent for electronapex.js functions inside APEX.
@@ -409,7 +409,7 @@ module.exports = {
 };
 ```
 
-####electronapex.js
+#### electronapex.js
 **not required if you decide to download this repository!**
 
 This file contains js functions used in the APEX app itself. For example notifications or opening files.
@@ -458,7 +458,7 @@ var electronapex = {
 };
 ```
 
-####Starting the App
+#### Starting the App
 - If you cloned this repository than you have to do this:
 ```
 npm install #installs all dependencies from package.json
@@ -470,7 +470,7 @@ npm start
 npm start
 ```
 
-####Bundle the app into a real Application
+#### Bundle the app into a real Application
 To create a real application from your development app folder you need the "electron-packager" package installed globally:
 ```
 npm install electron-packager -g
@@ -497,8 +497,8 @@ electron-packager . "APEX Plugins" --platform=win32 --arch=x64 --version=0.36.4 
 
 If you build a Windows Binary on other platforms be sure to install "wine" before!
 
-##Sample functions
-###Desktop notifications
+## Sample functions
+### Desktop notifications
 For this functionality I created a dynamic action (on button click) with this code:
 ```javascript
 var text = $v('P15_NOTIFY_TEXT'); //read text from APEX item
@@ -507,7 +507,7 @@ electronapex.doNotify(text); //use function from electronapex.js
 
 Uses the Browser Notification API [MDN](https://developer.mozilla.org/de/docs/Web/API/notification)
 
-###File open
+### File open
 Here I wrapped the file path + type "open-file" into console.log. On electron side I react on this with "webview.addEventListener('console-message')".
 I created a dynamic action (on button click) with this code:
 ```javascript
@@ -515,7 +515,7 @@ var path = $v('P15_FILE_PATH'); //read path from APEX item
 electronapex.openFile(path); //use function from electronapex.js
 ```
 
-###APEX Authorization Scheme
+### APEX Authorization Scheme
 Thus the webview is created with the option (useragent="APEXDESKTOP" - index.html),
 we can use this on APEX side to create a authorization scheme which is true or false based on the user agent of the "browser".
 
@@ -537,11 +537,11 @@ END;
 ```
 
 
-##License
+## License
 This software is under **MIT License**.
 
 [LICENSE](https://github.com/Dani3lSun/apex-app-desktop/blob/master/LICENSE)
 
-##Preview
+## Preview
 ![](https://github.com/Dani3lSun/apex-app-desktop/blob/master/preview.gif)
 ---

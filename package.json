@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/Dani3lSun/apex-app-desktop#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.37.8"
+    "electron-prebuilt": "^1.1.0"
   }
 }

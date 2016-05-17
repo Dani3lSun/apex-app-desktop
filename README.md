@@ -114,7 +114,7 @@ The resulting json file could look like this:
   },
   "homepage": "https://github.com/Dani3lSun/apex-app-desktop#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.36.4"
+    "electron-prebuilt": "^1.1.0"
   }
 }
 ```
@@ -141,7 +141,7 @@ Now we have to add **"start": "electron ."** to the scripts tag of the json file
   },
   "homepage": "https://github.com/Dani3lSun/apex-app-desktop#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.36.4"
+    "electron-prebuilt": "^1.1.0"
   }
 }
 ```
@@ -162,166 +162,169 @@ Here you can open new windows, react on app events or create menus...If you deci
 
 ```javascript
 // Libraries used in the app
-var app = require('app');
-var BrowserWindow = require('browser-window');
-var appMenu = require("menu");
-var appTray = require("tray");
-var path = require("path");
+var app = require('electron').app;
+var BrowserWindow = require('electron').BrowserWindow;
+var appMenu = require('electron').Menu;
+var appTray = require('electron').Tray;
+var path = require('path');
+const {
+    crashReporter
+} = require('electron');
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 // Crash Reporter (Optional)
-require('crash-reporter').start({
-  productName: 'APEX Plugins',
-  companyName: 'Daniel Hochleitner',
-  submitURL: 'https://github.com/Dani3lSun/apex-app-desktop/issues',
-  autoSubmit: false
+crashReporter.start({
+    productName: 'APEX Plugins',
+    companyName: 'Daniel Hochleitner',
+    submitURL: 'https://github.com/Dani3lSun/apex-app-desktop/issues',
+    autoSubmit: false
 });
 // Init mainWindow and Tray
 var mainWindow = null;
 var appIcon = null;
 // Kill the app when all windows are closed
 app.on('window-all-closed', function() {
-  if (process.platform != 'darwin') {
-    app.quit();
-  }
+    if (process.platform != 'darwin') {
+        app.quit();
+    }
 });
 // App is loaded
 app.on('ready', function() {
-  // Tray icon
-  // template
-  var trayTemplate = [{
-    label: "About Application",
-    selector: "orderFrontStandardAboutPanel:"
-  }, {
-    label: "Quit",
-    click: function() {
-      app.quit();
-    }
-  }];
-  // set tray icon with context menu
-  appIcon = new appTray(path.join(__dirname, 'img/tray.png'));
-  appIcon.setContextMenu(appMenu.buildFromTemplate(trayTemplate));
-  // Create the main window for the app
-  mainWindow = new BrowserWindow({
-    "width": 1280, // init width
-    "height": 800, // init height
-    "min-width": 1024,
-    "min-height": 800,
-    "resizable": true,
-    "use-content-size": true,
-    //"transparent": true, // better look in OSX
-    "title-bar-style": "hidden-inset", // better look in OSX
-    "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
-  });
-  // Load in content with webview to APEX app
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
-  // Ensure that garbage collection occurs when the window is closed
-  mainWindow.on('closed', function(e) {
-    mainWindow = null;
-  });
-  // Create the Application main menu (required for Copy&Paste Support)
-  // Application menu
-  var menuTemplate = [{
-    label: "Application",
-    submenu: [{
+    // Tray icon
+    // template
+    var trayTemplate = [{
         label: "About Application",
         selector: "orderFrontStandardAboutPanel:"
-      }, {
-        type: "separator"
-      }, {
+    }, {
         label: "Quit",
-        accelerator: "Command+Q",
         click: function() {
-          app.quit();
+            app.quit();
         }
-      }]
-      // Edit menu
-  }, {
-    label: "Edit",
-    submenu: [{
-      label: "Undo",
-      accelerator: "CmdOrCtrl+Z",
-      selector: "undo:"
+    }];
+    // set tray icon with context menu
+    appIcon = new appTray(path.join(__dirname, 'img/tray.png'));
+    appIcon.setContextMenu(appMenu.buildFromTemplate(trayTemplate));
+    // Create the main window for the app
+    mainWindow = new BrowserWindow({
+        "width": 1280, // init width
+        "height": 800, // init height
+        "minWidth": 1024,
+        "minHeight": 800,
+        "resizable": true,
+        "useContentSize": true,
+        //"transparent": true, // better look in OSX
+        "titleBarStyle": "hidden-inset", // better look in OSX
+        "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
+    });
+    // Load in content with webview to APEX app
+    mainWindow.loadURL('file://' + __dirname + '/index.html');
+    // Ensure that garbage collection occurs when the window is closed
+    mainWindow.on('closed', function(e) {
+        mainWindow = null;
+    });
+    // Create the Application main menu (required for Copy&Paste Support)
+    // Application menu
+    var menuTemplate = [{
+        label: "Application",
+        submenu: [{
+                label: "About Application",
+                selector: "orderFrontStandardAboutPanel:"
+            }, {
+                type: "separator"
+            }, {
+                label: "Quit",
+                accelerator: "Command+Q",
+                click: function() {
+                    app.quit();
+                }
+            }]
+            // Edit menu
     }, {
-      label: "Redo",
-      accelerator: "Shift+CmdOrCtrl+Z",
-      selector: "redo:"
+        label: "Edit",
+        submenu: [{
+            label: "Undo",
+            accelerator: "CmdOrCtrl+Z",
+            selector: "undo:"
+        }, {
+            label: "Redo",
+            accelerator: "Shift+CmdOrCtrl+Z",
+            selector: "redo:"
+        }, {
+            type: "separator"
+        }, {
+            label: "Cut",
+            accelerator: "CmdOrCtrl+X",
+            selector: "cut:"
+        }, {
+            label: "Copy",
+            accelerator: "CmdOrCtrl+C",
+            selector: "copy:"
+        }, {
+            label: "Paste",
+            accelerator: "CmdOrCtrl+V",
+            selector: "paste:"
+        }, {
+            label: "Select All",
+            accelerator: "CmdOrCtrl+A",
+            selector: "selectAll:"
+        }]
     }, {
-      type: "separator"
-    }, {
-      label: "Cut",
-      accelerator: "CmdOrCtrl+X",
-      selector: "cut:"
-    }, {
-      label: "Copy",
-      accelerator: "CmdOrCtrl+C",
-      selector: "copy:"
-    }, {
-      label: "Paste",
-      accelerator: "CmdOrCtrl+V",
-      selector: "paste:"
-    }, {
-      label: "Select All",
-      accelerator: "CmdOrCtrl+A",
-      selector: "selectAll:"
-    }]
-  }, {
-    // View menu
-    label: 'View',
-    submenu: [{
-      label: 'Reload',
-      accelerator: 'CmdOrCtrl+R',
-      click: function(item, focusedWindow) {
-        if (focusedWindow)
-          focusedWindow.reload();
-      }
-    }, {
-      label: 'Toggle Full Screen',
-      accelerator: (function() {
-        if (process.platform == 'darwin')
-          return 'Ctrl+Command+F';
-        else
-          return 'F11';
-      })(),
-      click: function(item, focusedWindow) {
-        if (focusedWindow)
-          focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
-      }
-    }, {
-      label: 'Toggle Developer Tools',
-      accelerator: (function() {
-        if (process.platform == 'darwin')
-          return 'Alt+Command+I';
-        else
-          return 'Ctrl+Shift+I';
-      })(),
-      click: function(item, focusedWindow) {
-        if (focusedWindow)
-          focusedWindow.toggleDevTools();
-      }
-    }]
-  }];
-  // set menu with options from above
-  appMenu.setApplicationMenu(appMenu.buildFromTemplate(menuTemplate));
+        // View menu
+        label: 'View',
+        submenu: [{
+            label: 'Reload',
+            accelerator: 'CmdOrCtrl+R',
+            click: function(item, focusedWindow) {
+                if (focusedWindow)
+                    focusedWindow.reload();
+            }
+        }, {
+            label: 'Toggle Full Screen',
+            accelerator: (function() {
+                if (process.platform == 'darwin')
+                    return 'Ctrl+Command+F';
+                else
+                    return 'F11';
+            })(),
+            click: function(item, focusedWindow) {
+                if (focusedWindow)
+                    focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
+            }
+        }, {
+            label: 'Toggle Developer Tools',
+            accelerator: (function() {
+                if (process.platform == 'darwin')
+                    return 'Alt+Command+I';
+                else
+                    return 'Ctrl+Shift+I';
+            })(),
+            click: function(item, focusedWindow) {
+                if (focusedWindow)
+                    focusedWindow.toggleDevTools();
+            }
+        }]
+    }];
+    // set menu with options from above
+    appMenu.setApplicationMenu(appMenu.buildFromTemplate(menuTemplate));
 });
 // Create the main window for the app when App is reopened from OSX Dock
 app.on('activate', function(e, hasVisibleWindows) {
-  if (mainWindow === null) {
-    mainWindow = new BrowserWindow({
-      "width": 1280, //init width
-      "height": 800, // init height
-      "min-width": 1024,
-      "min-height": 800,
-      "resizable": true,
-      "use-content-size": true,
-      "transparent": true, // better look in OSX
-      "title-bar-style": "hidden-inset", // better look in OSX
-      "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
-    });
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
-    mainWindow.on('closed', function() {
-      mainWindow = null;
-    });
-  }
+    if (mainWindow === null) {
+        mainWindow = new BrowserWindow({
+            "width": 1280, //init width
+            "height": 800, // init height
+            "minWidth": 1024,
+            "minHeight": 800,
+            "resizable": true,
+            "useContentSize": true,
+            "transparent": true, // better look in OSX
+            "titleBarStyle": "hidden-inset", // better look in OSX
+            "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
+        });
+        mainWindow.loadURL('file://' + __dirname + '/index.html');
+        mainWindow.on('closed', function() {
+            mainWindow = null;
+        });
+    }
 });
 ```
 
@@ -348,6 +351,11 @@ Also this file has js functions that get triggered from webview events.
       margin: 0;
       padding: 0;
     }
+
+    #apex-plugin-app {
+      width: 100%;
+      height: 100%;
+    }
   </style>
   <!-- Webview
   Parameter:
@@ -357,7 +365,7 @@ Also this file has js functions that get triggered from webview events.
   minheight,
   useragent (UserAgent inside the webview - used for authorization scheme in APEX)
   -->
-  <webview id="apex-plugin-app" src="https://apex.oracle.com/pls/apex/f?p=APEXPLUGIN" autosize="on" allowpopups minwidth="1024" minheight="800" useragent="APEXDESKTOP"></webview>
+  <webview id="apex-plugin-app" src="https://apex.oracle.com/pls/apex/f?p=APEXPLUGIN" autosize="on" minwidth="1024" minheight="800" allowpopups plugins useragent="APEXDESKTOP"></webview>
   <!-- Webview JS -->
   <script>
     var webview = document.getElementById("apex-plugin-app");

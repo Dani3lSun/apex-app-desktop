@@ -13,6 +13,8 @@ module.exports = {
     var position = consoleString.indexOf(stringDevider) + 2;
     path = consoleString.substr(position);
     var shell = electron.shell;
-    shell.openItem(path);
+    shell.openPath(path).catch( (reason) => {
+      console.log('Cannot open file: ', reason)
+    })
   }
 };

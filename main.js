@@ -42,15 +42,20 @@ app.on('ready', function() {
     appIcon.setContextMenu(appMenu.buildFromTemplate(trayTemplate));
     // Create the main window for the app
     mainWindow = new BrowserWindow({
-        "width": 1280, // init width
-        "height": 800, // init height
-        "minWidth": 1024,
-        "minHeight": 800,
-        "resizable": true,
-        "useContentSize": true,
+        width: 1280, // init width
+        height: 800, // init height
+        minWidth: 1024,
+        minHeight: 800,
+        resizable: true,
+        useContentSize: true,
         //"transparent": true, // better look in OSX
-        "titleBarStyle": "hidden-inset", // better look in OSX
-        "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
+        titleBarStyle: "hidden-inset", // better look in OSX
+        icon: path.join(__dirname, 'img/tray.png'), // app icon (for linux build)
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            webviewTag: true,
+        }
     });
     // Load in content with webview to APEX app
     mainWindow.loadURL('file://' + __dirname + '/index.html');
@@ -155,7 +160,12 @@ app.on('activate', function(e, hasVisibleWindows) {
             "useContentSize": true,
             "transparent": true, // better look in OSX
             "titleBarStyle": "hidden-inset", // better look in OSX
-            "icon": path.join(__dirname, 'img/tray.png') // app icon (for linux build)
+            "icon": path.join(__dirname, 'img/tray.png'), // app icon (for linux build)
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false,
+                webviewTag: true,
+            }
         });
         mainWindow.loadURL('file://' + __dirname + '/index.html');
         mainWindow.on('closed', function() {
